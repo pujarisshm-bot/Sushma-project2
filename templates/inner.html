@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fruit Inspection</title>
+    <style>
+        /* This adds the professional nature background image */
+        body { 
+            background: url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed; 
+            background-size: cover;
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
+
+        /* Improved Card Design (changed from red to semi-transparent white) */
+        .card { 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 40px; 
+            border-radius: 25px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
+            text-align: center; 
+            width: 90%; 
+            max-width: 500px; 
+            backdrop-filter: blur(5px);
+        }
+
+        .upload-area { 
+            border: 2px dashed #1d976c; 
+            padding: 30px; 
+            border-radius: 15px; 
+            margin-bottom: 20px; 
+            background: #f9fffb; 
+        }
+
+        .btn-predict { 
+            background: #1d976c; 
+            color: white; 
+            border: none; 
+            padding: 15px 40px; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+
+        .btn-predict:hover {
+            background: #147a54;
+            transform: scale(1.05);
+        }
+
+        img { 
+            max-width: 100%; 
+            border-radius: 12px; 
+            margin-top: 20px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+        }
+
+        .result-tag { 
+            font-size: 1.8rem; 
+            font-weight: bold; 
+            margin-top: 20px; 
+            color: #2c3e50; 
+            border-top: 2px solid #eee; 
+            padding-top: 15px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Fruit Quality Inspection</h2>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <div class="upload-area">
+                <input type="file" name="file" required>
+            </div>
+            <button type="submit" class="btn-predict">PREDICT</button>
+        </form>
+
+        {% if prediction %}
+            <div class="result-tag">Result: {{ prediction }}</div>
+            <img src="{{ url_for('static', filename=image_path) }}" alt="Result Image">
+        {% endif %}
+        <br><br>
+        <a href="/" style="color: #1d976c; text-decoration: none; font-weight: bold;">← Back Home</a>
+    </div>
+</body>
+</html>
